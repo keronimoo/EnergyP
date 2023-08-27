@@ -89,7 +89,8 @@
 			  
 			  <div class="mb-3">
 				<label for="exampleInputPassword1" class="form-label">Vergi Numarası</label>
-				<input type="password" class="form-control" id="exampleInputPassword1">
+				<input type="text" class="form-control" id="exampleInputPassword1" required pattern="[0-9]{10}">
+				<div class="form-text">Banka hesap bilgileri 10 karakterden oluşmalı ve sadece rakamlardan oluşmalıdır.</div>
 			  </div>
 			  <div class="mb-3">
 				<label for="exampleInputPassword1" class="form-label">Adres-Ülke</label>
@@ -146,17 +147,47 @@
 			</div>
 			<div class="mb-3">
 			  <label for="formGroupExampleInput2" class="form-label">Bina NO</label>
-			  <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Bina NO">
+			  <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Bina Numarası">
 			</div>
 			<div class="mb-3">
 			  <label for="formGroupExampleInput2" class="form-label">Kapı NO</label>
-			  <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Kapı NO">
+			  <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Kapı Numarası">
 			</div>
 			<div class="mb-3">
-			  <label for="formGroupExampleInput2" class="form-label">Banka Hesap Bilgileri</label>
-			  <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Banka Hesap Bilgileri">
+			  <label for="bankAccountInput" class="form-label">Banka Hesap Bilgileri (IBAN)</label>
+			  <input type="text" class="form-control" id="bankAccountInput" name="bankAccountInput" placeholder="TRXXXXXXXXXXXXXXXXXXXXXX" >
+			  <div class="form-text">Lütfen geçerli bir IBAN girin (örn: TR330006100519786457841326).</div>
 			</div>
-							
+			<div class="mb-3">
+			  <label for="formFileMultiple" class="form-label">Belgeler</label>
+			  <input class="form-control" type="file" id="formFileMultiple" multiple>
+			</div>
+			<script>
+			  const ibanInput = document.getElementById('bankAccountInput');
+
+			  ibanInput.addEventListener('input', function (event) {
+				const input = event.target;
+				const formattedIBAN = formatIBAN(input.value);
+				input.value = formattedIBAN;
+			  });
+
+			  function formatIBAN(iban) {
+				// Remove non-alphanumeric characters and convert to uppercase
+				const cleanedIBAN = iban.replace(/[^A-Z0-9]/g, '').toUpperCase();
+
+				// Format IBAN in blocks of 4 characters
+				const formattedIBAN = cleanedIBAN.match(/.{1,4}/g).join(' ');
+
+				return formattedIBAN;
+			  }
+			</script>
+
+
+
+
+
+
+
 							
 							
 			
